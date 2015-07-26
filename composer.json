@@ -1,6 +1,6 @@
 {
     "name": "beastbytes/yii2-wizard",
-    "description": "Yii2 extension to handle muli-part form wizards",
+    "description": "Yii2 extension to handle multi-form wizards",
     "keywords": ["yii2", "behavior", "form", "forms", "wizard"],
     "type": "yii2-extension",
     "license": "BSD-3-Clause",
