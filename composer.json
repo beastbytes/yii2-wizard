@@ -1,0 +1,23 @@
+{
+    "name": "beastbytes/yii2-wizard",
+    "description": "Yii2 extension to handle muli-part form wizards",
+    "keywords": ["yii2", "behavior", "form", "forms", "wizard"],
+    "type": "yii2-extension",
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/beastbytes/yii2-wizard/issues",
+        "source": "https://github.com/beastbytes/yii2-wizard"
+    },
+    "authors": [
+        {
+            "name": "Chris Yates",
+            "email": "chris.l.yates@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": { "beastbytes\\wizard\\": "" }
+    }
+}
