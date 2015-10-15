@@ -9,6 +9,7 @@
  */
 
 namespace beastbytes\wizard;
+use yii\base\InvalidConfigException;
 
 /**
  * StepEvent class.
@@ -54,4 +55,27 @@ class StepEvent extends WizardEvent
      * @see $n
      */
     public $t;
+
+    /**
+     * Set next step by direction constant or by step name
+     *
+     * @param integer|string $step
+     * @throws InvalidConfigException
+     * @see StepEvent::$nextStep for more info
+     * @see WizardBehavior for direction constants
+     */
+    public function setNextStep($step)
+    {
+        /** @var WizardBehavior $wizardBehavior */
+        $wizardBehavior = $this->sender;
+        if (is_string($step) && $wizardBehavior->autoAdvance !== false) {
+            throw new InvalidConfigException('WizardBehavior::autoAdvance must be FALSE to continue to named step');
+        }
+
+        // Assign next step
+        $this->nextStep = $step;
+
+        // Must be TRUE to continue to next step
+        $this->handled = true;
+    }
 }
