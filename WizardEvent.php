@@ -18,6 +18,10 @@ use yii\base\Event;
  */
 class WizardEvent extends Event
 {
+    const STEP_WIZARD_CANCELLED = null;
+    const STEP_WIZARD_COMPLETED = true;
+    const STEP_WIZARD_NOT_PROCESSED = false;
+
     /**
      * @var boolean Whether the wizard can continue to run
      * An event handler can set this to FALSE to end the wizard.
@@ -51,4 +55,22 @@ class WizardEvent extends Event
      * @var mixed Step data
      */
     public $stepData;
+
+    /**
+     * Return true if wizard was cancelled
+     * @return bool
+     */
+    public function isWizardCancelled()
+    {
+        return $this->step === self::STEP_WIZARD_CANCELLED;
+    }
+
+    /**
+     * Return true if all steps were completed
+     * @return bool
+     */
+    public function isWizardCompleted()
+    {
+        return $this->step === self::STEP_WIZARD_COMPLETED;
+    }
 }
