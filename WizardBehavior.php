@@ -594,7 +594,7 @@ class WizardBehavior extends Behavior
         $index = array_search($step, $steps);
         $expectedStep = $this->expectedStep(); // NULL if wizard finished
 
-        if ($index == 0 || ($index >= 0 && ($this->forwardOnly
+        if ($index === 0 || ($index >= 0 && ($this->forwardOnly
             ? $expectedStep !== null &&
                 $index === array_search($expectedStep, $steps)
             : $expectedStep === null ||
