@@ -56,3 +56,18 @@ This event's handler is responsible for validating submitted data and deciding i
 ### WizardBehavior::EVENT_AFTER_WIZARD
 
 The handler for this event is responsible for taking the required action once the Wizard has completed; this could be rendering a page based on the user input and/or saving the data to persistant storage.
+
+### WizardMenu
+Widget used for rendering steps navigation:
+```php
+echo \beastbytes\wizard\WizardMenu::widget([
+    'step' => $event->step,
+    'wizard' => $event->sender,
+]);
+```
+By default widget use \yii\widgets\Menu widget for rendering. You may redefine widget class for rendering between widgetConfig options:
+```php
+    'widgetConfig' => [
+        'class' => \yii\bootstrap\Tabs::class,
+    ],
+```

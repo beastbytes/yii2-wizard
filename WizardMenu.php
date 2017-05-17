@@ -48,7 +48,7 @@ class WizardMenu extends Widget
      */
     public $wizard;
 
-    public $widgetOptions = [];
+    public $widgetConfig = [];
 
     public $items = [];
 
@@ -106,7 +106,7 @@ class WizardMenu extends Widget
 
     public function run()
     {
-        $widgetOptions = $this->widgetOptions;
+        $widgetOptions = $this->widgetConfig;
         $widgetOptions['items'] = $this->items;
         if (empty($widgetOptions['class'])) {
             $widgetClass = Menu::class;
@@ -121,7 +121,7 @@ class WizardMenu extends Widget
 
     public function __set($name, $value)
     {
-        $this->widgetOptions[$name] = $value;
+        $this->widgetConfig[$name] = $value;
 
         return $this;
     }
