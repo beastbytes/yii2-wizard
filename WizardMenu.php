@@ -10,13 +10,14 @@
 
 namespace beastbytes\wizard;
 
+use yii\base\Widget;
 use yii\widgets\Menu;
 
 /**
  * WizardMenu class.
  * Creates a menu from the wizard steps.
  */
-class WizardMenu extends Menu
+class WizardMenu extends Widget
 {
     /**
      * @var string The CSS class for the current step
@@ -27,6 +28,9 @@ class WizardMenu extends Menu
      * e.g. ['label' => 'Done', 'url' => null]
      */
     public $finalItem;
+
+    public $isShowEmptySteps = true;
+
     /**
      * @var string The CSS class for future steps
      */
@@ -44,11 +48,16 @@ class WizardMenu extends Menu
      */
     public $wizard;
 
+    public $widgetOptions = [];
+
+    public $items = [];
+
     /**
      * Initialise the widget
      */
     public function init()
     {
+        parent::init();
         $route  = ['/'.$this->wizard->owner->route];
         $params = $this->wizard->owner->actionParams;
         $steps  = $this->wizard->steps;
@@ -62,7 +71,7 @@ class WizardMenu extends Menu
                 $active = true;
                 $class  = $this->currentStepCssClass;
                 $url    = array_merge($route, $params);
-            } elseif ($stepIndex < $index) {
+            } else if ($stepIndex < $index) {
                 $active = false;
                 $class  = $this->pastStepCssClass;
                 $url    = ($this->wizard->forwardOnly
@@ -71,7 +80,11 @@ class WizardMenu extends Menu
             } else {
                 $active = false;
                 $class  = $this->futureStepCssClass;
-                $url    = null;
+                if ($this->isShowFutureEmptySteps) {
+                    $url = null;
+                } else {
+                    $url = array_merge($route, $params);
+                }
             }
 
             $this->items[] = [
@@ -81,9 +94,35 @@ class WizardMenu extends Menu
                 'options' => compact('class')
             ];
 
+            if (!$this->isShowEmptySteps && !$this->wizard->read($step)) {
+                break;
+            }
+
             if (!empty($this->finalItem)) {
                 $this->items[] = $this->finalItem;
             }
         }
+    }
+
+    public function run()
+    {
+        $widgetOptions = $this->widgetOptions;
+        $widgetOptions['items'] = $this->items;
+        if (empty($widgetOptions['class'])) {
+            $widgetClass = Menu::class;
+        } else {
+            $widgetClass = $widgetOptions['class'];
+        }
+
+        $result = $widgetClass::widget($widgetOptions);
+
+        return $result;
+    }
+
+    public function __set($name, $value)
+    {
+        $this->widgetOptions[$name] = $value;
+
+        return $this;
     }
 }
