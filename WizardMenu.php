@@ -80,7 +80,7 @@ class WizardMenu extends Widget
             } else {
                 $active = false;
                 $class  = $this->futureStepCssClass;
-                if ($this->isShowFutureEmptySteps) {
+                if ($this->isShowEmptySteps) {
                     $url = null;
                 } else {
                     $url = array_merge($route, $params);
